@@ -3,6 +3,7 @@ package sample;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Group;
 import javafx.scene.Scene;
@@ -12,10 +13,12 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 import java.io.File;
+import java.util.ArrayList;
 
 public class UserInterface{
 
@@ -30,6 +33,7 @@ public class UserInterface{
     private Button answerCorrect,answerIncorrect;
     private Button importCSVButton, exportCSVButton;
     private Button clearButton;
+    private PastWordsArea pastWordsArea;
 
     private boolean answering = false;
 
@@ -46,7 +50,13 @@ public class UserInterface{
     }
 
     public void initialize(){
-        VBox content = new VBox();
+
+        VBox maincontent = new VBox();
+        pastWordsArea = new PastWordsArea(control);
+
+        HBox content = new HBox();
+        content.getChildren().addAll(maincontent,pastWordsArea);
+        content.setPadding(new Insets(10));
         root.getChildren().add(content);
 
         wordArea = new WordArea(control);
@@ -68,8 +78,10 @@ public class UserInterface{
         importExport.setSpacing(20);
 
         answerCorrect = new Button("Correct");
+        answerCorrect.setVisible(answering);
 
         answerIncorrect = new Button("Incorrect");
+        answerIncorrect.setVisible(answering);
 
         HBox answerGroup=new HBox();
         answerGroup.getChildren().addAll(answerCorrect,answerIncorrect);
@@ -82,15 +94,16 @@ public class UserInterface{
         answerCorrect.setOnAction(answerResponse);
         answerIncorrect.setOnAction(answerResponse);
 
-        content.getChildren().addAll(wordArea,answerGroup, getWordButton,addWordArea, clearButton, importExport);
-        content.setSpacing(10);
-        content.setAlignment(Pos.CENTER);
+        maincontent.getChildren().addAll(wordArea,answerGroup, getWordButton,addWordArea, clearButton, importExport);
+        maincontent.setSpacing(10);
+        maincontent.setAlignment(Pos.CENTER);
 
 
         getWordButton.setOnAction(e -> {
             try {
                 answering = true;
                 control.getWord();
+                answerCorrect.setFocusTraversable(true);
             } catch(Exception ex){
                 System.out.println("Failed to get next word");
             }
@@ -127,9 +140,6 @@ public class UserInterface{
             }
             control.saveCSV(file);
         });
-
-        checkNextWordAllowance();
-        checkAnswerButtonAllowance();
     }
 
     public void checkAnswerButtonAllowance() {
@@ -156,5 +166,17 @@ public class UserInterface{
         getWordButton.setDisable(disable);
         importCSVButton.setDisable(disable);
         clearButton.setDisable(disable);
+    }
+
+    public void setCounter(int numWords) {
+        pastWordsArea.setCount(numWords);
+    }
+
+    public void resetPastWords() {
+        pastWordsArea.reset();
+    }
+
+    public void addPastWord(Word word, boolean b) {
+        pastWordsArea.addWord(word,b);
     }
 }

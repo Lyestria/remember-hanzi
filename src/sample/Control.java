@@ -1,19 +1,20 @@
 package sample;
 
 
-import javafx.scene.control.TextField;
+
 
 import java.io.File;
 
 public class Control {
+
     private UserInterface ui;
 
     private WordBank bank;
 
     private LocalStorage storage;
 
+
     Control(LocalStorage storage) throws Exception{
-        this.ui = ui;
         this.storage = storage;
         try{
             bank = storage.retrieveData();
@@ -46,7 +47,6 @@ public class Control {
             } catch(Exception e){
             }
         }
-
     }
 
     public void clear(){
@@ -56,7 +56,6 @@ public class Control {
         } catch(Exception e){
 
         }
-        update();
     }
 
     public void saveWord(String context1, String context2) {
@@ -88,12 +87,19 @@ public class Control {
         }
     }
 
+    private boolean counting = false;
+    private int count = 0;
+
     public void reportResult(boolean b) {
         try {
             Word word = bank.curWord();
             word.report(b);
+            if(counting){
+                ui.setCounter(++count);
+                ui.addPastWord(word,b);
+            }
             storage.saveData(bank);
-
+            update();
         } catch (Exception e){
             System.out.println("Report Failed");
         }
@@ -105,4 +111,17 @@ public class Control {
         ui.display(bank.curWord());
     }
 
+    public void startCounting(){
+        counting = true;
+    }
+
+    public void stopCounting() {
+        counting = false;
+    }
+
+    public void resetCount() {
+        count = 0;
+        ui.setCounter(count);
+        ui.resetPastWords();
+    }
 }

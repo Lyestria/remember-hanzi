@@ -138,4 +138,8 @@ public class Word implements Serializable {
         }
         return String.valueOf(his);
     }
+
+    public String toString(){
+        return word;
+    }
 }

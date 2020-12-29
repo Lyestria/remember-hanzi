@@ -10,11 +10,6 @@ import java.util.stream.Collectors;
 
 import javax.management.RuntimeErrorException;
 
-
-//TO-DO
-//Figure out how to combine two word histories
-//Current placeholder is trash
-
 public class WordBank implements Serializable {
     private HashMap<String,Word> bank;
     private ArrayList<String> words;
