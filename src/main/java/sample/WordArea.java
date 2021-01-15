@@ -23,17 +23,17 @@ public class WordArea extends VBox {
         this.control = control;
 
         wordBox=new Text();
-        wordBox.setFont(new Font("FZHei-B01S",200));
+        wordBox.setFont(new Font(Constants.wordFont,200));
         info=new Text("Weight: \nHistory: ");
 
 
         contextBox1=new TextField();
-        contextBox1.setFont(new Font("FZHei-B01S",15));
+        contextBox1.setFont(new Font(Constants.wordFont,15));
         contextBox1.setAlignment(Pos.CENTER);
         contextBox1.setDisable(true);
 
         contextBox2=new TextField();
-        contextBox2.setFont(new Font("FZHei-B01S",15));
+        contextBox2.setFont(new Font(Constants.wordFont,15));
         contextBox2.setDisable(true);
         contextBox2.setAlignment(Pos.CENTER);
 

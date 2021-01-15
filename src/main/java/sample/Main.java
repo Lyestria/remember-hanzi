@@ -10,7 +10,6 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         try {
-            Constants.initialize();
             LocalStorage storage = new LocalStorage();
             Control control = new Control(storage);
 

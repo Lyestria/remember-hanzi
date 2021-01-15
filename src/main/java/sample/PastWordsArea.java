@@ -51,7 +51,7 @@ public class PastWordsArea extends VBox {
         countArea.setPadding(new Insets(15));
 
         header = new Text("Tested Words\n");
-        header.setFont(new Font("FZHei-B01S",20));
+        header.setFont(new Font(Constants.wordFont,20));
         header.setTextAlignment(TextAlignment.CENTER);
 
         pastArea = new TextFlow();
@@ -74,7 +74,7 @@ public class PastWordsArea extends VBox {
 
     public void addWord(Word word, boolean b) {
         Text body=new Text(word.toString()+"\n");
-        body.setFont(new Font("FZHei-B01S",18));
+        body.setFont(new Font(Constants.wordFont,18));
         body.setTextAlignment(TextAlignment.CENTER);
         body.setFill(b? Color.GREEN : Color.RED);
         pastArea.getChildren().add(body);
