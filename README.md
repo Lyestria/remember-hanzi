@@ -1,2 +1,2 @@
 # remember-hanzi
-Oh god, I actually need to write stuff here...
+This JavaFX application is used to aide learning Chinese characters (and possibly other character sets).
